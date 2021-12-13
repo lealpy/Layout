@@ -30,32 +30,20 @@ class MainActivity : AppCompatActivity() {
 
         binding.apply {
 
-            profileSettings.setOnClickListener {
-                viewModel.onClicked()
-            }
+            val viewsForClickCounter = setOf(
+                profileSettings,
+                notifications,
+                language,
+                confidentiality,
+                support,
+                decoration,
+                logout,
+            )
 
-            notifications.setOnClickListener {
-                viewModel.onClicked()
-            }
-
-            language.setOnClickListener {
-                viewModel.onClicked()
-            }
-
-            confidentiality.setOnClickListener {
-                viewModel.onClicked()
-            }
-
-            support.setOnClickListener {
-                viewModel.onClicked()
-            }
-
-            decoration.setOnClickListener {
-                viewModel.onClicked()
-            }
-
-            logout.setOnClickListener {
-                viewModel.onClicked()
+            viewsForClickCounter.forEach { view ->
+                view.setOnClickListener {
+                    viewModel.onClicked()
+                }
             }
 
             navView.selectedItemId = R.id.navigationProfile
@@ -79,21 +67,22 @@ class MainActivity : AppCompatActivity() {
 
     private fun initObservers() {
 
-        viewModel.clickCounter.observe(this, {clickCounter ->
+        viewModel.clickCounter.observe(this) {clickCounter ->
             binding.clickCounter.text = clickCounter.toString()
-        })
+        }
 
-        viewModel.countersProgress.observe(this, {countersProgress ->
+        viewModel.countersProgress.observe(this) {countersProgress ->
             binding.clickProgressBar.progress = countersProgress
-        })
+        }
 
-        viewModel.symbolsCounter.observe(this, {symbolsCounter ->
+        viewModel.symbolsCounter.observe(this) {symbolsCounter ->
             binding.symbolsCounter.text = symbolsCounter.toString()
-        })
+        }
 
-        viewModel.symbolsProgress.observe(this, {symbolsProgress ->
+        viewModel.symbolsProgress.observe(this) {symbolsProgress ->
             binding.symbolsProgressBar.progress = symbolsProgress
-        })
+        }
+
     }
 
 }
