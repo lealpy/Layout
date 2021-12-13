@@ -3,17 +3,20 @@ package com.lealpy.socialnetworkui
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.core.widget.addTextChangedListener
+import androidx.lifecycle.ViewModelProvider
 import com.lealpy.socialnetworkui.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var binding : ActivityMainBinding
-    lateinit var viewModel : MainViewModel
+    private val binding by lazy {
+        ActivityMainBinding.inflate(layoutInflater)
+    }
+
+    private val viewModel by lazy {
+        ViewModelProvider(this).get(MainViewModel::class.java)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        viewModel = MainViewModel()
 
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
